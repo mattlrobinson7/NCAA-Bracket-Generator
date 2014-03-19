@@ -14,7 +14,8 @@ public class Randomizer {
 	    in.close();
 
 		createBracket();
-				
+		
+		//Runs the bracket until there is only one team left.
 		while (bracket.length > 1) {
 			Team[] tempBracket = new Team[bracket.length / 2];
 			for (int i = 0; i < bracket.length / 2; i++) {
@@ -36,6 +37,13 @@ public class Randomizer {
 		}		
 	}
 
+	/**
+	 * Using the trends from the past 25 years, determines how a low seeded team 
+	 * will do in the second round.
+	 * @param team1
+	 * @param team2
+	 * @return winning team
+	 */
 	private static Team smartFindWinnerRound2(Team team1, Team team2) {
 		int team2Wins = 0;
 		int team1Wins = 0;
@@ -77,18 +85,19 @@ public class Randomizer {
 	    		team2Wins = 15;
 				break;
         default: System.err.println("Seeding Error");
-        		 System.exit(1);;
+        		 System.exit(1);
                  break;
 		}
-        double random = Math.random() * (team1Wins + team2Wins);
-        
-        if (team2Wins > random) {
-        	return highSeed;
-        } else {
-        	return lowSeed;
-        }
+		return randomWinner(highSeed, lowSeed, team1Wins + team2Wins, team2Wins);
 	}
 
+	/**
+	 * Using the trends from the past 25 years, determines how a low seeded team 
+	 * will do in the first round.
+	 * @param team1
+	 * @param team2
+	 * @return winning team
+	 */
 	private static Team smartFindWinnerRound1(Team team1, Team team2) {	
 		int team2Wins = 0;
         switch (team2.seed) {
@@ -121,24 +130,40 @@ public class Randomizer {
                      break;
         }
         
-        double random = Math.random() * YEARS * 4;
-        if (team2Wins > random) {
-        	return team2;
-        } else {
-        	return team1;
-        }
+        return randomWinner(team2, team1, YEARS * 4, team2Wins);
 	}
 
+	/**
+	 * Finds the winner of a matchup based on how they are seeded
+	 * @param team1
+	 * @param team2
+	 * @return winning team
+	 */
 	private static Team findWinner(Team team1, Team team2) {
-		int totalSeed = team1.seed + team2.seed;
-		double random = Math.random() * totalSeed;
-		if (team2.seed > random) {
+		return randomWinner(team1, team2, team1.seed + team2.seed, team2.seed);
+	}
+
+	/**
+	 * Common code used in all winner methods to determin the winning team based on
+	 * the generated random number.
+	 * @param team1
+	 * @param team2
+	 * @param multiplier
+	 * @param team2Value
+	 * @return winning team
+	 */
+	private static Team randomWinner(Team team1, Team team2, int multiplier, int team2Value) {
+		double random = Math.random() * multiplier;
+		if (team2Value > random) {
 			return team1;
 		} else  {
 			return team2;
 		}
 	}
 
+	/**
+	 * Creates the original bracket based on a text file with all the teams and seeds.
+	 */
 	private static void createBracket() {
 		bracket = new Team[64];	
         File file = new File("seeds.txt");

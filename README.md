@@ -14,3 +14,6 @@ the 4 seed has 91 times and the 13 seed has only won 25 times. So the 4 seed wou
 For this year's tournament, I will be making 6 different brackets, 2 with the seed based implementation, 2 with the smart trend based
 implementation, and 2 with my own basketball knowledge. After the tournament is over I will share my results and hopefully be $1 Billion
 richer :)
+
+RESULTS:
+Day 1, around 5% of all brackets still were perfect after 5 games, Trend1 was one of them. 

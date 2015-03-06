@@ -12,7 +12,7 @@ public class Randomizer {
 	    int choice = in.nextInt();
 	    System.out.println(choice);
 	    in.close();
-
+	
 		createBracket();
 		
 		//Runs the bracket until there is only one team left.

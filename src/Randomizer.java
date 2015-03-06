@@ -39,7 +39,7 @@ public class Randomizer {
 
 	/**
 	 * Using the trends from the past 25 years, determines how a low seeded team 
-	 * will do in the second round.
+	 * will do in the second round
 	 * @param team1
 	 * @param team2
 	 * @return winning team
